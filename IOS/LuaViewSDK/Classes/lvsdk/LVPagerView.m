@@ -75,6 +75,7 @@ static inline NSInteger unmapPageIdx(NSInteger pageIdx){
     }
     [self resetCellFrame];
     self.pagerIndicator.numberOfPages = self.cellArray.count;
+    
 }
 
 -(void) resetCellFrame{
@@ -275,7 +276,11 @@ static int lvNewPageView (lv_State *L) {
 }
 
 -(void) reloadData{
+    for( UIView* view in self.cellArray ) {
+        [view removeFromSuperview];
+    }
     [self createAllCell];
+    [self checkCellVisible];
 }
 
 static int reload (lv_State *L) {
